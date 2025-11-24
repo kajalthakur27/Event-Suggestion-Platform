@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User, Mail, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
 
 export default function AuthScreen() {
+  const navigate = useNavigate();
+  
   // States for managing views and inputs
   const [view, setView] = useState('signin'); // 'signin', 'signup', or 'forgot'
   const [showPassword, setShowPassword] = useState(false);
@@ -35,9 +38,10 @@ export default function AuthScreen() {
       setIsLoading(false);
       if (view === 'signin') {
         showNotification(`Welcome back! Logged in as ${formData.email}`);
+        setTimeout(() => navigate('/dashboard'), 1500);
       } else if (view === 'signup') {
-        showNotification('Account created successfully! Please login.');
-        setView('signin');
+        showNotification('Account created successfully! Redirecting...');
+        setTimeout(() => navigate('/dashboard'), 2000);
       } else if (view === 'forgot') {
         showNotification(`Password reset link sent to ${formData.email}`);
         setView('signin');
