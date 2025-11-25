@@ -60,72 +60,102 @@ export default function AuthScreen() {
   const btnColor = "bg-[#2e2b5b]";
 
   return (
-    <div className="h-screen w-screen bg-gray-100 flex items-center justify-center p-4 font-sans overflow-hidden">
-      {/* Main Mobile Container */}
-      <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl overflow-hidden relative flex flex-col h-[850px] max-h-[90vh]">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 flex items-center justify-center p-4 font-sans overflow-hidden relative">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-20 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-40 right-20 w-72 h-72 bg-yellow-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-40 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+      </div>
+
+      {/* Main Container */}
+      <div className="w-full max-w-md bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl overflow-hidden relative flex flex-col min-h-[700px] border border-white/20">
         
-        {/* Notification Toast */}
+        {/* Enhanced Notification Toast */}
         {notification && (
-          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 bg-green-600 text-white px-4 py-2 rounded-full shadow-lg flex items-center text-sm animate-bounce">
-            <CheckCircle size={16} className="mr-2" />
-            {notification}
+          <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center text-sm animate-slideDown border border-green-400">
+            <CheckCircle size={18} className="mr-3" />
+            <span className="font-medium">{notification}</span>
           </div>
         )}
 
-        {/* --- HEADER SECTION --- */}
-        <div className={`${themeColor} pt-8 pb-16 px-6 rounded-b-[40px] relative z-10`}>
+        {/* Enhanced Header Section */}
+        <div className="bg-gradient-to-br from-purple-600 via-purple-700 to-pink-600 pt-8 pb-16 px-6 rounded-b-[40px] relative z-10 overflow-hidden">
+          {/* Animated background elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse"></div>
+            <div className="absolute -bottom-5 -left-5 w-24 h-24 bg-pink-400/20 rounded-full blur-xl animate-bounce"></div>
+          </div>
           
-          {/* Toggle Tabs (Only visible if not in Forgot Password mode) */}
-          {view !== 'forgot' && (
-            <div className="flex justify-between items-end px-8 mt-4 gap-4">
-              <button 
-                onClick={() => setView('signup')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                  view === 'signup' 
-                    ? 'bg-white text-[#1e1b4b] shadow-md' 
-                    : 'text-gray-300 hover:text-white'
-                }`}
-              >
-                Sign Up
-              </button>
-              <button 
-                onClick={() => setView('signin')}
-                className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                  view === 'signin' 
-                    ? 'bg-white text-[#1e1b4b] shadow-md' 
-                    : 'text-gray-300 hover:text-white'
-                }`}
-              >
-                Sign In
-              </button>
+          <div className="relative z-10">
+            {/* Logo and branding */}
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4 border border-white/30">
+                <User size={32} className="text-white" />
+              </div>
+              <h1 className="text-3xl font-bold text-white mb-1">EventAI</h1>
+              <p className="text-purple-200 text-sm">Discover amazing events with AI</p>
             </div>
-          )}
 
-          {view === 'forgot' && (
-             <div className="px-2 mt-4">
-               <h2 className="text-2xl text-white font-bold">Reset Password</h2>
-               <p className="text-gray-300 text-sm mt-1">Enter your email to recover your account</p>
-             </div>
-          )}
+            {/* Toggle Tabs (Only visible if not in Forgot Password mode) */}
+            {view !== 'forgot' && (
+              <div className="flex bg-white/20 backdrop-blur-sm rounded-2xl p-1 gap-1 border border-white/30">
+                <button 
+                  onClick={() => setView('signup')}
+                  className={`flex-1 px-4 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                    view === 'signup' 
+                      ? 'bg-white text-purple-700 shadow-lg transform scale-[0.98]' 
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  Sign Up
+                </button>
+                <button 
+                  onClick={() => setView('signin')}
+                  className={`flex-1 px-4 py-3 rounded-xl font-semibold transition-all duration-200 ${
+                    view === 'signin' 
+                      ? 'bg-white text-purple-700 shadow-lg transform scale-[0.98]' 
+                      : 'text-white hover:bg-white/10'
+                  }`}
+                >
+                  Sign In
+                </button>
+              </div>
+            )}
+
+            {view === 'forgot' && (
+               <div className="text-center">
+                 <h2 className="text-3xl text-white font-bold mb-2">Reset Password</h2>
+                 <p className="text-purple-200 text-sm">Enter your email to recover your account</p>
+               </div>
+            )}
+          </div>
         </div>
 
-        {/* --- BODY SECTION --- */}
-        <div className="flex-1 flex flex-col justify-center px-8 py-4 relative">
+        {/* Enhanced Body Section */}
+        <div className="flex-1 flex flex-col justify-center px-8 py-6 relative">
           
-          {/* Title */}
-          <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">
-            {view === 'signup' && 'Create An Account'}
-            {view === 'signin' && 'Welcome Back !'}
-            {view === 'forgot' && 'Forgot Password?'}
-          </h2>
+          {/* Enhanced Title */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 text-transparent bg-clip-text mb-2">
+              {view === 'signup' && 'Create An Account'}
+              {view === 'signin' && 'Welcome Back!'}
+              {view === 'forgot' && 'Forgot Password?'}
+            </h2>
+            <p className="text-gray-500">
+              {view === 'signup' && 'Join thousands discovering amazing events'}
+              {view === 'signin' && 'Sign in to continue your journey'}
+              {view === 'forgot' && 'No worries, we\'ll help you reset it'}
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-5 max-w-sm mx-auto w-full">
             
-            {/* Full Name (Sign Up Only) */}
+            {/* Enhanced Full Name Field (Sign Up Only) */}
             {view === 'signup' && (
-              <div className="relative">
+              <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <User size={20} className="text-[#1e1b4b]" />
+                  <User size={20} className="text-purple-600 group-focus-within:text-purple-700 transition-colors" />
                 </div>
                 <input
                   type="text"
@@ -133,33 +163,33 @@ export default function AuthScreen() {
                   placeholder="Full Name"
                   value={formData.fullName}
                   required={view === 'signup'}
-                  className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:border-[#1e1b4b] focus:ring-2 focus:ring-[#1e1b4b] outline-none shadow-sm text-gray-800 font-semibold placeholder-gray-500 bg-white"
+                  className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none shadow-sm text-gray-800 font-medium placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200"
                   onChange={handleChange}
                 />
               </div>
             )}
 
-            {/* Email Field */}
-            <div className="relative">
+            {/* Enhanced Email Field */}
+            <div className="relative group">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Mail size={20} className="text-[#1e1b4b]" />
+                <Mail size={20} className="text-purple-600 group-focus-within:text-purple-700 transition-colors" />
               </div>
               <input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder="Email Address"
                 value={formData.email}
                 required
-                className="w-full pl-12 pr-4 py-3.5 rounded-xl border border-gray-300 focus:border-[#1e1b4b] focus:ring-2 focus:ring-[#1e1b4b] outline-none shadow-sm text-gray-800 font-semibold placeholder-gray-500 bg-white"
+                className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-gray-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none shadow-sm text-gray-800 font-medium placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200"
                 onChange={handleChange}
               />
             </div>
 
-            {/* Password Field (Not for Forgot Password) */}
+            {/* Enhanced Password Field (Not for Forgot Password) */}
             {view !== 'forgot' && (
-              <div className="relative">
+              <div className="relative group">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Lock size={20} className="text-[#1e1b4b]" />
+                  <Lock size={20} className="text-purple-600 group-focus-within:text-purple-700 transition-colors" />
                 </div>
                 <input
                   type={showPassword ? "text" : "password"}
@@ -167,13 +197,13 @@ export default function AuthScreen() {
                   placeholder="Password"
                   value={formData.password}
                   required
-                  className="w-full pl-12 pr-12 py-3.5 rounded-xl border border-gray-300 focus:border-[#1e1b4b] focus:ring-2 focus:ring-[#1e1b4b] outline-none shadow-sm text-gray-800 font-semibold placeholder-gray-500 bg-white"
+                  className="w-full pl-12 pr-12 py-4 rounded-2xl border-2 border-gray-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none shadow-sm text-gray-800 font-medium placeholder-gray-400 bg-white/50 backdrop-blur-sm transition-all duration-200"
                   onChange={handleChange}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-gray-600"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-purple-600 transition-colors duration-200"
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -215,16 +245,24 @@ export default function AuthScreen() {
               </div>
             )}
 
-            {/* Main Action Button */}
+            {/* Enhanced Main Action Button */}
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full ${btnColor} text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:opacity-90 transform active:scale-[0.98] transition-all mt-6 flex justify-center items-center`}
+              className="group w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 mt-6 flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed border border-purple-500"
             >
               {isLoading ? (
-                <span className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                <>
+                  <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mr-3"></div>
+                  Processing...
+                </>
               ) : (
-                view === 'signup' ? 'Sign Up' : (view === 'forgot' ? 'Send Link' : 'Sign In')
+                <>
+                  {view === 'signup' && <User className="mr-2 group-hover:scale-110 transition-transform" size={20} />}
+                  {view === 'signin' && <CheckCircle className="mr-2 group-hover:scale-110 transition-transform" size={20} />}
+                  {view === 'forgot' && <Mail className="mr-2 group-hover:scale-110 transition-transform" size={20} />}
+                  {view === 'signup' ? 'Create Account' : (view === 'forgot' ? 'Send Reset Link' : 'Sign In')}
+                </>
               )}
             </button>
 
@@ -257,10 +295,57 @@ export default function AuthScreen() {
           )}
         </div>
 
-        {/* --- FOOTER CURVE --- */}
-        <div className={`${themeColor} h-16 w-full rounded-t-[50%] mt-auto`}></div>
+        {/* Enhanced Footer Curve */}
+        <div className="bg-gradient-to-r from-purple-600 to-pink-600 h-16 w-full rounded-t-[50%] mt-auto relative overflow-hidden">
+          <div className="absolute inset-0 bg-white/10 animate-pulse"></div>
+        </div>
         
       </div>
+
+      {/* CSS Animations */}
+      <style jsx>{`
+        @keyframes blob {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+        
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+        
+        .animate-slideDown {
+          animation: slideDown 0.3s ease-out;
+        }
+      `}</style>
     </div>
   );
 }
